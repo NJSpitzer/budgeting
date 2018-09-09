@@ -1,18 +1,18 @@
 package njs.data;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * @author Nicholas Spitzer
- *
+ * <p>
  * Class to contain data about a transaction
- *
+ * <p>
  * Fields:
  * - isExpense: true/false to say if the Transaction is an expense or income
  * - amount: BigDecial to contain how much the Transaction is
  * - date: Date for when the transaction happened
- *
  */
 
 public class Transaction {
@@ -61,10 +61,14 @@ public class Transaction {
         return String.valueOf(new Date().getTime());
     }
 
+    public boolean isExpense() {
+        return isExpense;
+    }
+
     /**
      * @return String saying if it is an expense or not
      */
-    public String isExpense() {
+    public String isExpenseString() {
         if (isExpense) {
             return "Expense";
         }
@@ -73,10 +77,25 @@ public class Transaction {
 
     /**
      * Set if Transaction is an expense or not
-     * @param isExpense
+     *
+     * @param isExpense as boolean
      */
     public void setIfExpense(boolean isExpense) {
         this.isExpense = isExpense;
+    }
+
+    /**
+     * Set if Transaction is an expense or not
+     *
+     * @param isExpense as String
+     */
+    public void setIfExpense(String isExpense) {
+
+        if (isExpense.equals("Income")) {
+            this.isExpense = false;
+        } else if (isExpense.equals("Expense")) {
+            this.isExpense = true;
+        }
     }
 
     /**
@@ -88,6 +107,7 @@ public class Transaction {
 
     /**
      * Update amount of transaction
+     *
      * @param amount amount in transaction
      */
     public void setAmount(BigDecimal amount) {
@@ -102,7 +122,16 @@ public class Transaction {
     }
 
     /**
+     * @return date of transaction as String
+     */
+    public String getDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(date);
+    }
+
+    /**
      * Update date of transaction
+     *
      * @param date Date of transaction
      */
     public void setDate(Date date) {
@@ -110,7 +139,6 @@ public class Transaction {
     }
 
     /**
-     *
      * @return transactionID for transaction
      */
     public String getTransactionID() {

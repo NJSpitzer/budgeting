@@ -22,7 +22,7 @@ public class TransactionClassTests {
         transactionAmount = new BigDecimal("7.56").setScale(2, RoundingMode.CEILING);
 
         try {
-            transactionDate = new SimpleDateFormat("mm/dd/yyyy").parse("02/07/2002");
+            transactionDate = new SimpleDateFormat("MM/dd/yyyy").parse("02/07/2002");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -39,13 +39,12 @@ public class TransactionClassTests {
 
         transaction = new Transaction();
 
-        if (transaction.isExpense().equals("Expense")) {
+        if (transaction.isExpense()) {
             report = report.replaceFirst("#", "Yes");
-            report = report.replaceFirst("#", transaction.isExpense());
         } else {
             report = report.replaceFirst("#", "No");
-            report = report.replaceFirst("#", transaction.isExpense());
         }
+        report = report.replaceFirst("#", transaction.isExpenseString());
 
         if (transaction.getAmount() != null) {
             report = report.replaceFirst("#", "Yes");
@@ -57,7 +56,7 @@ public class TransactionClassTests {
 
         if (transaction.getDate() != null) {
             report = report.replaceFirst("#", "Yes");
-            report = report.replaceFirst("#", transaction.getDate().toString());
+            report = report.replaceFirst("#", transaction.getDateString());
         } else {
             report = report.replaceFirst("#", "No");
             report = report.replaceFirst("#", "NULL");
@@ -93,7 +92,7 @@ public class TransactionClassTests {
     public String createTransactionAmountIsExpense() {
 
         report = String.format("Is amount correct? #\nExpected: %s\nActual: #\n" +
-                "Is transaction marked as \"Income\"? # #", transactionAmount.toString());
+                "Is transaction marked as \"Income\"? #", transactionAmount.toString());
 
         transaction = new Transaction(isExpense, transactionAmount);
 
@@ -104,12 +103,66 @@ public class TransactionClassTests {
         }
         report = report.replaceFirst("#", transaction.getAmount().toString());
 
-        if (transaction.isExpense().equals("Income")) {
+        if (!transaction.isExpense()) {
             report = report.replaceFirst("#", "Yes");
         } else {
             report = report.replaceFirst("#", "No");
         }
-        report = report.replaceFirst("#", transaction.isExpense());
+
+        return report;
+    }
+
+    public String createTransactionWithAmountAndDate() {
+
+        report = String.format("Is amount correct? #\nExpected: %s\nActual: #\n" +
+                "Is date correct? #\nExpected: %s\nActual: #", transactionAmount, transactionDate);
+
+        transaction = new Transaction(transactionAmount, transactionDate);
+
+        if (transactionAmount.compareTo(transaction.getAmount()) == 0) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
+        report = report.replaceFirst("#", transaction.getAmount().toString());
+
+        if (transaction.getDate().equals(transactionDate)) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
+        report = report.replaceFirst("#", transaction.getDate().toString());
+
+        return report;
+    }
+
+    public String createTransactionIsExpenseAmountDate() {
+
+        report = String.format("Is amount correct? #\nExpected: %s\nActual: #\n" +
+                "Is date correct? #\nExpected: %s\nActual: #\n" +
+                "Is Income? #", transactionAmount, transactionDate);
+
+        transaction = new Transaction(isExpense, transactionAmount, transactionDate);
+
+        if (transactionAmount.compareTo(transaction.getAmount()) == 0) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
+        report = report.replaceFirst("#", transaction.getAmount().toString());
+
+        if (transaction.getDate().equals(transactionDate)) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
+        report = report.replaceFirst("#", transaction.getDate().toString());
+
+        if (!transaction.isExpense()) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
 
         return report;
     }
