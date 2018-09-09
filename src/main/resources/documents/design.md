@@ -12,11 +12,16 @@
      * Is it income or expense?
      * Name
      * Date
+     * Transaction ID (randomly generated and unique per Transaction)
 * Month - class to hold a whole month's transactions
   * Data
     * All of the Transactions of that month
     * Start date and end date
     * Number of weeks
+    * Month/Year pair for what month
+    * Monthly expenses
+    * Monthly income
+    * Net total - how much was made/lost in the month
 * Loan - class to hold data about a loan
   * Data
     * Starting/current amount
@@ -33,6 +38,7 @@
   * Data
     * Data from the 3 Months in it (amount made vs amount spent)
     * Start date and end date
+    * Name containing starting month & ending month, plus year
 * Year - class to show how the year is going
   * Data
     * Data for the quarters in that year about income and expenses

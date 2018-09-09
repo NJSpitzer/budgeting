@@ -1,6 +1,9 @@
 package njs.data;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author Nicholas Spitzer
@@ -10,34 +13,54 @@ import java.math.BigDecimal;
  * Fields:
  * - isExpense: true/false to say if the Transaction is an expense or income
  * - amount: BigDecial to contain how much the Transaction is
+ * - date: Date for when the transaction happened
  *
- * Constructors: 3
- * - Transaction()
- * - Transaction(BigDecimal amount)
- * - Transaction(boolean isExpense, BigDecimal amount)
- *
- * Methods
- * - isExpense()
- * - getAmount()
  */
 
 public class Transaction {
 
     private boolean isExpense;
     private BigDecimal amount;
+    private Date date;
+    private String transactionID;
 
     public Transaction() {
-        isExpense = false;
+        isExpense = true;
         amount = new BigDecimal("0.00").setScale(2, BigDecimal.ROUND_CEILING);
+        date = new Date();
+        transactionID = generateTransactionID();
     }
 
     public Transaction(BigDecimal amount) {
+        isExpense = true;
         this.amount = amount;
+        date = new Date();
+        transactionID = generateTransactionID();
     }
 
     public Transaction(boolean isExpense, BigDecimal amount) {
         this.isExpense = isExpense;
         this.amount = amount;
+        date = new Date();
+        transactionID = generateTransactionID();
+    }
+
+    public Transaction(BigDecimal amount, Date date) {
+        isExpense = true;
+        this.amount = amount;
+        this.date = date;
+        transactionID = generateTransactionID();
+    }
+
+    public Transaction(boolean isExpense, BigDecimal amount, Date date) {
+        this.isExpense = isExpense;
+        this.amount = amount;
+        this.date = date;
+        transactionID = generateTransactionID();
+    }
+
+    private String generateTransactionID() {
+        return String.valueOf(new Date().getTime());
     }
 
     /**
@@ -54,7 +77,7 @@ public class Transaction {
      * Set if Transaction is an expense or not
      * @param isExpense
      */
-    public void setIsExpense(boolean isExpense) {
+    public void setIfExpense(boolean isExpense) {
         this.isExpense = isExpense;
     }
 
@@ -65,7 +88,34 @@ public class Transaction {
         return amount;
     }
 
+    /**
+     * Update amount of transaction
+     * @param amount amount in transaction
+     */
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    /**
+     * @return date of transaction
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Update date of transaction
+     * @param date Date of transaction
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     *
+     * @return transactionID for transaction
+     */
+    public String getTransactionID() {
+        return transactionID;
     }
 }
