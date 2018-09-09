@@ -1,9 +1,7 @@
 package njs.data;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * @author Nicholas Spitzer
@@ -68,9 +66,9 @@ public class Transaction {
      */
     public String isExpense() {
         if (isExpense) {
-            return "Income";
+            return "Expense";
         }
-        return "Expense";
+        return "Income";
     }
 
     /**

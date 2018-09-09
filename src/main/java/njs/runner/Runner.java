@@ -16,5 +16,9 @@ public class Runner {
      */
     public static void main(String args[]) {
 
+        Transaction transaction = new Transaction();
+
+        System.out.println(String.format("Amount: %s\nDate: %s\nTransactionID: %s",
+                transaction.getAmount(), transaction.getDate(), transaction.getTransactionID()));
     }
 }
