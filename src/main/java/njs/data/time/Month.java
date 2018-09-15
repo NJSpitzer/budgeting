@@ -4,6 +4,7 @@ import njs.data.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,6 +63,15 @@ public class Month {
     }
 
     /**
+     *
+     * @return Start date as String
+     */
+    public String getStartDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(startDate);
+    }
+
+    /**
      * Update the start date
      * @param startDate
      */
@@ -75,6 +85,15 @@ public class Month {
      */
     public Date getEndDate() {
         return endDate;
+    }
+
+    /**
+     *
+     * @return Start date as String
+     */
+    public String getEndDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(endDate);
     }
 
     /**
@@ -188,5 +207,26 @@ public class Month {
                 break;
             }
         }
+    }
+
+    /**
+     *
+     */
+    public Transaction getTransaction(String transactionID) {
+
+        for (Transaction tran : transactions) {
+            if (tran.getTransactionID().equals(transactionID)) {
+                return tran;
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @return number of Transactions in the month as int
+     */
+    public int numberOfTransactions() {
+        return transactions.size();
     }
 }

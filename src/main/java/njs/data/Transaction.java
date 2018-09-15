@@ -144,4 +144,9 @@ public class Transaction {
     public String getTransactionID() {
         return transactionID;
     }
+
+    public String toString() {
+        return String.format("Expense or Income? %s Amount: $%s Date: %s Transaction ID: %s",
+                this.isExpenseString(), amount.toString(), this.getDateString(), transactionID);
+    }
 }
