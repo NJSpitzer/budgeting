@@ -145,6 +145,20 @@ public class Month {
     }
 
     /**
+     * Adds a - (minus sign) if the expenses are not zero
+     *
+     * @return Total expenses as a String
+     */
+    public String getTotalExpensesString() {
+
+        if (this.totalExpenses.compareTo(new BigDecimal("0.00").setScale(2)) == 0) {
+            return this.totalExpenses.toString();
+        } else {
+            return "-" + this.totalExpenses.toString();
+        }
+    }
+
+    /**
      *
      * @return total income as BigDecimal
      */
@@ -158,6 +172,15 @@ public class Month {
      */
     public BigDecimal getNetTotal() {
         return netTotal;
+    }
+
+    /**
+     * Adds a - (minus sign) if the net total is less than zero
+     *
+     * @return Net total as a String
+     */
+    public String getNetTotalString() {
+        return this.netTotal.toString();
     }
 
     /**
@@ -226,7 +249,25 @@ public class Month {
      *
      * @return number of Transactions in the month as int
      */
-    public int numberOfTransactions() {
+    public int getNumberOfTransactions() {
         return transactions.size();
+    }
+
+    public String toString() {
+        String output;
+
+        if (transactions.isEmpty()) {
+            output = String.format("No Transactions in %s", this.name);
+        } else {
+            output = String.format("Transaction(s) for %s\nNumber of transactions: %d\n", this.name, this.getNumberOfTransactions());
+
+            for (Transaction transaction: transactions) {
+                output = output.concat(String.format("\t%s\n", transaction.toString()));
+            }
+            output = output.concat(String.format("Income: $%s\nExpenses: $%s\nNet Total: $%s",
+                    this.totalIncome, this.getTotalExpensesString(), this.netTotal));
+        }
+
+        return output;
     }
 }

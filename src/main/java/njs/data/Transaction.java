@@ -106,6 +106,21 @@ public class Transaction {
     }
 
     /**
+     *
+     */
+    public String getAmountString() {
+        String output;
+
+        if (this.isExpense) {
+            output = "$-";
+        } else {
+            output = "$";
+        }
+
+        return output.concat(this.amount.toString());
+    }
+
+    /**
      * Update amount of transaction
      *
      * @param amount amount in transaction
@@ -146,7 +161,7 @@ public class Transaction {
     }
 
     public String toString() {
-        return String.format("Expense or Income? %s Amount: $%s Date: %s Transaction ID: %s",
-                this.isExpenseString(), amount.toString(), this.getDateString(), transactionID);
+        return String.format("Transaction ID: %s Expense or Income? %s Amount: %s Date: %s",
+                transactionID, this.isExpenseString(), this.getAmountString(), this.getDateString());
     }
 }

@@ -67,21 +67,61 @@ public class TimeFrameTests {
 
     public String testMonthFunctions() {
 
-        report = "";
+        report = String.format("Testing empty month: %s\n\n", month1.toString());
 
         // Add a transaction
         month1.addTransaction(transaction1);
         // Report back
-        report = report.concat(String.format("Initial Transaction: %s\n" +
-                "Total Expenses: $%s\nTotal Income: $%s\nNet Total: $%s",
-                month1.getTransaction(transaction1.getTransactionID()), month1.getTotalExpenses(),
+        report = report.concat(String.format("Adding 1st transaction to %s.\nInitial Transaction: %s\n" +
+                "Total Expenses: $%s\nTotal Income: $%s\nNet Total: $%s\n\n",
+                month1.getName(), month1.getTransaction(transaction1.getTransactionID()), month1.getTotalExpenses(),
                         month1.getTotalIncome(), month1.getNetTotal()));
 
         // Add 2nd transaction
+        month1.addTransaction(transaction2);
         // Report back
+        report = report.concat(String.format("Adding 2nd transaction.\n" +
+                        "Number of transactions? %d\nReport on month: %s\n\n",
+                month1.getNumberOfTransactions(), month1.toString()));
 
-        // Remove 2nd transaction
+        // Remove 1st transaction
+        month1.removeTransaction(transaction1.getTransactionID());
         // Report back
+        report = report.concat(String.format("Removing 1st transaction.\n" +
+                        "Number of transactions? %d\nReport on month: %s",
+                month1.getNumberOfTransactions(), month1.toString()));
+
+        // Cleanup for next test
+        month1.removeTransaction(transaction2);
+
+        return report;
+    }
+
+    public String testQuarterFunctions() {
+
+        quarter1 = new Quarter("Q2 2003");
+
+        report = String.format("Testing empty Quarter: %s\n", quarter1.toString());
+
+        // Set up, add month
+        month1.addTransaction(transaction1);
+        month1.addTransaction(transaction2);
+        quarter1.addMonth(month1);
+
+        //Report back
+        report = report.concat(String.format("Added 1 month to quarter.\n%s\n", quarter1.toString()));
+
+        month2.addTransaction(transaction3);
+        month2.addTransaction(transaction4);
+        quarter1.addMonth(month2);
+
+        report = report.concat(String.format("Added 2nd month. Updated numbers: \n%s\n" +
+                "Month by month breakdown: \n%s\n\n", quarter1.toString(), quarter1.getMonthlyBreakdown()));
+
+        quarter1.getMonth("June 2003").removeTransaction(transaction3);
+
+        report = report.concat(String.format("Removed transaction from 2nd month. Updated numbers: \n%s\n" +
+                "Month by month breakdown: \n%s", quarter1.toString(), quarter1.getMonthlyBreakdown()));
 
         return report;
     }

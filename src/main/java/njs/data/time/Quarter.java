@@ -31,6 +31,16 @@ public class Quarter {
         months.add(month);
     }
 
+    public Month getMonth(String name) {
+
+        for (Month m: months) {
+            if (m.getName().equals(name)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
     /**
      * @return total expenses for Quarter as BigDecimal
      */
@@ -68,5 +78,32 @@ public class Quarter {
         }
 
         return netTotal;
+    }
+
+    public String getMonthlyBreakdown() {
+
+        String output = "";
+
+        for (Month m: months) {
+            output = output.concat(m.toString() + "\n\n");
+        }
+
+        return output;
+    }
+
+    public String toString() {
+
+        String output = String.format("Name: %s\nIncome for Quarter: $%s\nExpenses for Quarter: $",
+                this.quarterName, this.getTotalIncome());
+
+        if (this.getTotalExpenses().compareTo(new BigDecimal("0.00").setScale(2)) > 0) {
+            output = output.concat("-");
+        }
+
+        output = output.concat(String.format("%s\nNet Total for Quarter: $", this.getTotalExpenses()));
+
+        output = output.concat(String.format("%s", this.getNetTotal()));
+
+        return output;
     }
 }
