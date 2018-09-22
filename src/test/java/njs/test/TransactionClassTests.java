@@ -7,6 +7,8 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
 
 public class TransactionClassTests {
 
@@ -165,5 +167,51 @@ public class TransactionClassTests {
         }
 
         return report;
+    }
+
+    /* ******************** NEW TEST STRUCTURE ************************/
+
+    @Test
+    public void newTransactionCreationTest() {
+
+        String report = "Is expense? # #\n" +
+                "Has Amount? # #\n" +
+                "Has Date? # #\n" +
+                "Has TransactionID? # #";
+
+        Reporter.log("Testing TestNG reporter");
+
+        transaction = new Transaction();
+
+        if (transaction.isExpense()) {
+            report = report.replaceFirst("#", "Yes");
+        } else {
+            report = report.replaceFirst("#", "No");
+        }
+        report = report.replaceFirst("#", transaction.isExpenseString());
+
+        if (transaction.getAmount() != null) {
+            report = report.replaceFirst("#", "Yes");
+            report = report.replaceFirst("#", transaction.getAmount().toString());
+        } else {
+            report = report.replaceFirst("#", "No");
+            report = report.replaceFirst("#", "NULL");
+        }
+
+        if (transaction.getDate() != null) {
+            report = report.replaceFirst("#", "Yes");
+            report = report.replaceFirst("#", transaction.getDateString());
+        } else {
+            report = report.replaceFirst("#", "No");
+            report = report.replaceFirst("#", "NULL");
+        }
+
+        if (transaction.getTransactionID() != null) {
+            report = report.replaceFirst("#", "Yes");
+            report = report.replaceFirst("#", transaction.getTransactionID());
+        } else {
+            report = report.replaceFirst("#", "No");
+            report = report.replaceFirst("#", "NULL");
+        }
     }
 }
