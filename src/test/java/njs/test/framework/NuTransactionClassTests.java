@@ -48,31 +48,17 @@ public class NuTransactionClassTests implements ITest {
 
         transaction = new Transaction();
 
-        try{
-            Assert.assertTrue(transaction.isExpense(), "Validating if transaction is expense.");
-        } catch (Throwable throwable) {
+        Verification.verifyTrue(transaction.isExpense(),
+                String.format("Validating if transaction is expense? %s", transaction.isExpenseString()));
 
-        }
+        Verification.verifyTrue(transaction.getAmount() != null,
+                String.format("Transaction is not null? %s", transaction.getAmount()));
 
-        try {
-            Assert.assertTrue(transaction.getAmount() != null,
-                    String.format("Testing transaction amount. Amount: %s", transaction.getAmount()));
-        } catch (Throwable throwable) {
+        Verification.verifyTrue(transaction.getDate() != null,
+                String.format("Date is not null? %s", transaction.getDate()));
 
-        }
-
-        try {
-            Assert.assertTrue(transaction.getDate() != null,
-                    String.format("Date is not null? %s", transaction.getDate()));
-        } catch (Throwable throwable) {
-
-        }
-
-        try {
-            Assert.assertTrue(transaction.getTransactionID() != null, "Is transaction ID NULL?");
-        } catch (Throwable throwable) {
-
-        }
+        Verification.verifyTrue(transaction.getTransactionID() != null,
+                String.format("Transaction ID is not null? %s", transaction.getTransactionID()));
     }
 
     @Override
