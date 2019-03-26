@@ -42,3 +42,9 @@
 * Year - class to show how the year is going
   * Data
     * Data for the quarters in that year about income and expenses
+* Stock/Investment (Name Undecided)
+    * Data
+        * Name
+        * Amount Invested
+        * Date Invested
+        * Amount Changed
