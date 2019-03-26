@@ -42,9 +42,20 @@
 * Year - class to show how the year is going
   * Data
     * Data for the quarters in that year about income and expenses
-* Stock/Investment (Name Undecided)
-    * Data
-        * Name
-        * Amount Invested
-        * Date Invested
-        * Amount Changed
+* Stocks & Investments
+    * StockPurchase
+        * Data
+            * Number of shares
+            * Initial price per share paid
+            * Current price per share
+        * Methods
+            * Remove shares that are sold in a purchase
+            * Total amount invested for this bundle
+            * Total current value of bundle
+            * Amount of money made/lost with bundle
+    * StockBundle
+        * Data
+            * Name of company stock bundles are for (i.e. Nintendo)
+            * Collection of stock bundles
+        * Methods
+            * Total amount made/lost on all stock bundles for company
